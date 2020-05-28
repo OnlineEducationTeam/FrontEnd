@@ -1,0 +1,171 @@
+/*the css for the navigation bar */
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 8vh;
+  background-color: #dac292;
+  box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.2);
+}
+
+/*h3 class a used in navbar*/
+h3.a {
+  float: right;
+}
+
+.logo {
+  margin-left: 10%;
+}
+
+.logoutButtonPosition {
+  position: absolute;
+  right: 20%;
+}
+
+.logoutButtonSytle {
+  border: none;
+  background-color: inherit;
+  font-weight: bold;
+}
+
+.logoutButtonSytle:hover {
+  text-decoration: underline;
+}
+
+/*drop down button used in lessonSelecti */
+#dropdown-basic-button {
+  background-color: #dac292;
+  color: black;
+  border: none;
+  width: 15%;
+  margin: 10px;
+  display: inline;
+  box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+/*used in persononline */
+.container-style {
+  margin: 15px;
+  border-style: solid;
+  transition: 0.2s;
+  border-color: #7a653b;
+  background-color: #dac292;
+  padding: 0 !important;
+  border-radius: 15px;
+  box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.2);
+}
+
+/*used in persononline */
+.container-style .info {
+  margin: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.theInfoDisplay {
+  color: blue;
+  text-decoration: underline;
+}
+
+.theInfoDisplay:hover {
+  color: rgb(102, 163, 255);
+}
+
+/*used in persononline */
+.container-style img {
+  margin: 2px;
+  float: right;
+  width: 50%;
+  border-radius: 50%;
+}
+
+/*used in persononline */
+.container-style:hover {
+  transform: scale(1.03);
+}
+
+.check-who {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+/*used in persononline */
+ul {
+  float: right;
+}
+
+/*used in persononline */
+li {
+  color: blue;
+  text-decoration: underline;
+  list-style-type: none;
+}
+
+/*used in construction page */
+.construction {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+
+/*used in construction page */
+h1.a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+/*used in homepage for displayig <Online /> for online users*/
+.homepage-style-main {
+  position: relative;
+  float: right;
+  right: 5%;
+  max-width: 100vh;
+  max-width: 100vh;
+  min-width: 25vh;
+  min-height: 80vh;
+  border-radius: 25px;
+}
+
+/*used in online js to display all users online */
+.online-container {
+  margin-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*used in homepage for scroll down*/
+.content {
+  max-height: 75vh;
+  overflow: hidden;
+}
+
+/*Navbar icons to left */
+.navbarIcons {
+  margin: 2px;
+  float: right;
+  display: inline;
+}
+
+.buttonfile1:hover {
+  cursor: pointer;
+}
+
+.footer {
+  position: absolute;
+  text-align: center;
+  width: 99.9%;
+  background-color: rgb(26, 0, 13);
+  color: white;
+  font-weight: bold;
+  bottom: 0px;
+}
