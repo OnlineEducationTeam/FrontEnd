@@ -3,7 +3,6 @@ import NavBar from "./homepagecomp/navbarProfile";
 import axios from "axios";
 import "./profiles.css";
 import Footer from "./homepagecomp/footer";
-import imag from "./default-image.png";
 
 class SetingsOfProfile extends React.Component {
   constructor(props) {
@@ -16,34 +15,19 @@ class SetingsOfProfile extends React.Component {
       aboutSelf: "",
       professor: false,
       selectedFile: null,
-      done: false,
-      selectedImage: imag,
-      defImage: null,
     };
   }
 
-  componentWillMount() {
+  async componentDidMount() {
     const user = JSON.parse(localStorage.getItem("profileUser"));
-    const id = JSON.parse(localStorage.getItem("currentUser"));
-    this.setState(
-      {
-        token: id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        aboutSelf: user.aboutSelf,
-        professor: user.professor,
-      },
-      () => {
-        this.loadImage();
-      }
-    );
-  }
-
-  loadImage() {
-    var id = String(this.state.token);
-    var path = "http://localhost:5000/photos/" + id;
-    this.setState({ selectedImage: path });
+    await this.setState({
+      token: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      aboutSelf: user.aboutSelf,
+      professor: user.professor,
+    });
   }
 
   handleChange = (event) => {
@@ -68,30 +52,16 @@ class SetingsOfProfile extends React.Component {
     event.preventDefault();
   };
 
-  onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      this.setState({ defImage: event.target.files[0] });
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        this.setState({ selectedImage: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
-
-  onError = () => {
-    if (!this.state.errored) {
-      this.setState({
-        selectedImage: imag,
-      });
-    }
-  };
-
   onChangeHandler = (event) => {
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-    });
+    this.setState(
+      {
+        selectedFile: event.target.files[0],
+        loaded: 0,
+      },
+      () => {
+        console.log(this.state.selectedFile);
+      }
+    );
   };
 
   async save(props) {
@@ -112,16 +82,6 @@ class SetingsOfProfile extends React.Component {
     data.append("file", this.state.selectedFile);
     await axios
       .post("http://localhost:5000/upload", data, {
-        params: { id: JSON.parse(localStorage.getItem("currentUser")) },
-      })
-      .then((res) => {
-        // then print response status
-        console.log(res.data);
-      });
-    const data1 = new FormData();
-    data1.append("file", this.state.defImage);
-    await axios
-      .post("http://localhost:5000/uploadPhoto", data1, {
         params: { id: JSON.parse(localStorage.getItem("currentUser")) },
       })
       .then((res) => {
@@ -153,53 +113,46 @@ class SetingsOfProfile extends React.Component {
   render() {
     return (
       <div>
-        <NavBar profile={this.state.token} />
+        <NavBar
+          profile={this.state.token}
+          style={{ marginRight: "5%", marginLeft: "5%" }}
+        />
         <div className="container">
-          <form onSubmit={this.handleSubmit}>
-            <div className="row">
-              <div className="col-md-6 img">
-                <img
-                  src={this.state.selectedImage}
-                  alt=""
-                  className="img-rounded img-style"
-                  onError={this.onError}
-                />
-                <input
-                  type="file"
-                  onChange={this.onImageChange}
-                  style={{
-                    float: "right",
-                    textAlign: "rigth",
-                    paddingTop: "5px",
-                  }}
-                />
-              </div>
-              <div className="col-md-6 details">
-                <blockquote>
-                  <textarea
-                    value={this.state.firstName}
-                    onChange={this.handleChangeName}
-                    className="textarea1 settings"
-                  ></textarea>
-                  <br />
-                  <textarea
-                    value={this.state.lastName}
-                    onChange={this.handleChangeSurname}
-                    className="textarea1 settings"
-                  ></textarea>
-                  <small></small>
-                </blockquote>
-                <textarea
-                  value={this.state.email}
-                  onChange={this.handleChangeEmail}
-                  className="textarea1 settings"
-                ></textarea>
-              </div>
-            </div>
-            <br />
-            <div className="sectionStyle">
+          <div className="sectionStyle">
+            <form onSubmit={this.handleSubmit}>
               <div className="row">
-                <label className="col sm={6} sector">
+                <div className="col-md-6 img">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"
+                    alt=""
+                    className="img-rounded"
+                  />
+                </div>
+                <div className="col-md-6 details">
+                  <blockquote>
+                    <textarea
+                      value={this.state.firstName}
+                      onChange={this.handleChangeName}
+                      className="textarea1"
+                    ></textarea>
+                    <br />
+                    <textarea
+                      value={this.state.lastName}
+                      onChange={this.handleChangeSurname}
+                      className="textarea1"
+                    ></textarea>
+                    <small></small>
+                  </blockquote>
+                  <textarea
+                    value={this.state.email}
+                    onChange={this.handleChangeEmail}
+                    className="textarea1"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div className="row">
+                <label className="col-md sector">
                   About Me:
                   <textarea
                     value={this.state.aboutSelf}
@@ -217,8 +170,8 @@ class SetingsOfProfile extends React.Component {
                 value="Save Changes"
                 style={{ backgroundColor: "lightblue" }}
               />
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
         <Footer />
       </div>

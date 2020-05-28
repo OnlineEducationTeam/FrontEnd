@@ -6,7 +6,6 @@ import StarRatingComponent from "react-star-rating-component";
 import Reviews from "./homepagecomp/reviews";
 import Notes from "./homepagecomp/notes";
 import Footer from "./homepagecomp/footer";
-import imag from "./default-image.png";
 
 class educatorProfile extends React.Component {
   constructor() {
@@ -19,18 +18,13 @@ class educatorProfile extends React.Component {
       email: "",
       aboutSelf: "",
       review: "",
-      selectedImage: imag,
       stars: 1,
       loaded: false,
     };
   }
-
-  componentWillMount() {
-    this.start();
+  async componentDidMount(props) {
+    await this.start();
     this.setState({ loaded: true });
-  }
-  componentDidMount(props) {
-    this.loadImage();
   }
 
   start = (props) => {
@@ -55,31 +49,19 @@ class educatorProfile extends React.Component {
   };
 
   handleSubmit = (event) => {
+    console.log(this.state);
     localStorage.removeItem("review");
     let rev = { id: this.state.token, review: this.state.review };
     localStorage.setItem("review", JSON.stringify(rev));
     this.save();
     event.preventDefault();
-    window.location.reload(false);
+    this.props.history.push({
+      pathname: "/OnliEdu/educatorProfile",
+    });
   };
 
   onStarClick = (nextValue, prevValue, name) => {
     this.setState({ stars: nextValue });
-  };
-
-  loadImage() {
-    var id = String(this.state.token);
-    var path = "http://localhost:5000/photos/" + id;
-
-    this.setState({ selectedImage: path });
-  }
-
-  onError = () => {
-    if (!this.state.errored) {
-      this.setState({
-        selectedImage: imag,
-      });
-    }
   };
 
   save(props) {
@@ -101,37 +83,38 @@ class educatorProfile extends React.Component {
   content() {
     return (
       <div>
-        <NavBar className="navbar" />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 img">
-              <img
-                src={this.state.selectedImage}
-                alt=""
-                className="img-rounded img-style"
-                onError={this.onError}
-              />
-            </div>
-            <div className="col-md-6 details">
-              <blockquote>
-                <h5>
-                  {this.state.firstName} {this.state.lastName}
-                </h5>
-                <small></small>
-              </blockquote>
-              <p>
-                {this.state.email} <br />
-              </p>
+        <NavBar />
+        <div
+          className="container"
+          style={{ marginRight: "5%", marginLeft: "5%" }}
+        >
+          <div className="sectionStyle">
+            <div className="row">
+              <div className="col-md-6 img">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"
+                  alt=""
+                  className="img-rounded"
+                />
+              </div>
+              <div className="col-md-6 details">
+                <blockquote>
+                  <h5>
+                    {this.state.firstName} {this.state.lastName}
+                  </h5>
+                  <small></small>
+                </blockquote>
+                <p>
+                  {this.state.email} <br />
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="sectionStyle">
-          <div
-            className="col-md sector"
-            style={{ fontWeight: "bold", marginLeft: "5px" }}
-          >
-            About Me:
-            <div style={{ fontWeight: "normal" }}>{this.state.aboutSelf}</div>
+          <div className="row">
+            <div className="col-md sector" style={{ fontWeight: "bold" }}>
+              About Me:
+              <div style={{ fontWeight: "normal" }}>{this.state.aboutSelf}</div>
+            </div>
           </div>
           <div className="row">
             <div className="col-md sector" style={{ fontWeight: "bold" }}>

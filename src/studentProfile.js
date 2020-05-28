@@ -5,7 +5,6 @@ import { IoIosSettings } from "react-icons/io";
 import axios from "axios";
 import Reviews from "./homepagecomp/reviews";
 import Footer from "./homepagecomp/footer";
-import imag from "./default-image.png";
 
 class studentProfile extends React.Component {
   constructor(props) {
@@ -18,10 +17,9 @@ class studentProfile extends React.Component {
       aboutSelf: "",
       professor: false,
       files: [],
-      selectedImage: imag,
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     const user = JSON.parse(localStorage.getItem("profileUser"));
     this.setState({
       token: user._id,
@@ -32,26 +30,6 @@ class studentProfile extends React.Component {
       professor: user.professor,
     });
   }
-
-  componentDidMount() {
-    this.loadImage();
-  }
-
-  loadImage() {
-    var id = String(this.state.token);
-    var path = "http://localhost:5000/photos/" + id;
-
-    this.setState({ selectedImage: path });
-  }
-
-  onError = () => {
-    if (!this.state.errored) {
-      this.setState({
-        selectedImage: imag,
-      });
-    }
-  };
-
   handleSettings = (porps) => {
     this.props.history.push({
       pathname: "/OnliEdu/settings",
@@ -121,8 +99,8 @@ class studentProfile extends React.Component {
           <div className="row">
             <div className="col-md sector">
               Notes:
-              <div style={{ paddingTop: "10px" }}>
-                <ul className="ul-file-position">{notes}</ul>
+              <div>
+                <ul>{notes}</ul>
               </div>
             </div>
           </div>
@@ -145,44 +123,41 @@ class studentProfile extends React.Component {
       <div>
         <NavBar profile={this.state.token} className="navbar" />
         <div className="container">
-          <div className="row">
-            <div className="col-md-6 img ">
-              <img
-                src={this.state.selectedImage}
-                alt=""
-                className="img-rounded img-style"
-                onError={this.onError}
-              />
-            </div>
-            <div className="col-md-6 details">
-              <blockquote>
-                <h5>
-                  {this.state.firstName} {this.state.lastName}{" "}
-                  <button
-                    style={{ border: "none", backgroundColor: "white" }}
-                    onClick={this.handleSettings}
-                  >
-                    <IoIosSettings />
-                  </button>
-                </h5>
-                <small></small>
-              </blockquote>
-              <p>
-                {this.state.email} <br />
-              </p>
-            </div>
-          </div>
           <div className="sectionStyle">
-            <div
-              rows="4"
-              cols="50"
-              className="textarea col sm={6} sector"
-              style={{ marginLeft: "5px" }}
-            >
-              About Me:
-              <br />
-              <div className="container" style={{ fontWeight: "normal" }}>
-                {this.state.aboutSelf}
+            <div className="row">
+              <div className="col-md-6 img">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"
+                  alt=""
+                  className="img-rounded"
+                />
+              </div>
+              <div className="col-md-6 details">
+                <blockquote>
+                  <h5>
+                    {this.state.firstName} {this.state.lastName}{" "}
+                    <button
+                      style={{ border: "none", backgroundColor: "white" }}
+                      onClick={this.handleSettings}
+                    >
+                      <IoIosSettings />
+                    </button>
+                  </h5>
+                  <small></small>
+                </blockquote>
+                <p>
+                  {this.state.email} <br />
+                </p>
+              </div>
+            </div>
+
+            <div className="row ">
+              <div className="col-md sector">
+                About Me:
+                <br />
+                <div className="container" style={{ fontWeight: "normal" }}>
+                  {this.state.aboutSelf}
+                </div>
               </div>
             </div>
           </div>
