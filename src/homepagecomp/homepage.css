@@ -1,4 +1,10 @@
 /*the css for the navigation bar */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 nav {
   display: flex;
   justify-content: space-around;
@@ -161,11 +167,12 @@ h1.a {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   text-align: center;
   width: 99.9%;
   background-color: rgb(26, 0, 13);
   color: white;
   font-weight: bold;
-  bottom: 0px;
+  bottom: 0;
+  margin: 0 auto;
 }
