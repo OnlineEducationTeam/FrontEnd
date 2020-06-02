@@ -7,8 +7,6 @@ import Online from "./homepagecomp/online";
 import axios from "axios";
 import Chat from "./homepagecomp/chat";
 import Footer from "./homepagecomp/footer";
-import VideoChat from "./homepagecomp/Call";
-import Ring from "./ringVideo";
 import StarRatingComponent from "react-star-rating-component";
 
 import "whatwg-fetch";
@@ -38,9 +36,10 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    socket.on(this.state.name, (name) => {
+    var user = JSON.parse(localStorage.getItem("profileUser"));
+    var name = user.firstName;
+    socket.on(name, (name) => {
       var userRoom = name + this.state.name;
-      console.log(userRoom);
       this.setState({ chat: true, nameForChat: name, userRoom: userRoom });
     });
     var video = this.state.name + "video";
@@ -76,6 +75,9 @@ class HomePage extends React.Component {
       }
     );
     if (this.props.location.state) {
+      var user = JSON.parse(localStorage.getItem("profileUser"));
+      var name = user.firstName;
+      this.setState({ name: name });
       this.setState({
         name: this.props.location.state.name,
         token: this.props.location.state.token,
@@ -117,6 +119,8 @@ class HomePage extends React.Component {
 
   onChatClickMe = (name, id) => {
     var nam = this.state.name;
+    var js = JSON.parse(localStorage.getItem("profileUser"));
+    nam = js.firstName;
     var userRoom = nam + name;
     this.setState(
       { nameForChat: name, idForChat: id, userRoom: userRoom },
@@ -185,56 +189,6 @@ class HomePage extends React.Component {
             userRoom={this.state.userRoom}
             nameOfUser={this.state.name}
           />
-        )}
-        {this.state.videoPopUp ? (
-          <div className="popup">
-            <div
-              className="popup_inner"
-              style={{ top: "15%", bottom: "15%", right: "15%", left: "15%" }}
-            >
-              <VideoChat channel={this.state.channel} />
-              <button
-                onClick={() => {
-                  this.setState({ videoPopUp: false, videoRating: true });
-                }}
-                className="hangUp"
-              >
-                <IoIosClose size={35} />
-              </button>{" "}
-            </div>{" "}
-          </div>
-        ) : null}
-        {this.state.ringCall && (
-          <Ring
-            acceptCall={() => {
-              this.setState({ ringCall: false, videoPopUp: true });
-            }}
-            declineCall={() => {
-              this.setState({ ringCall: false });
-            }}
-          />
-        )}
-        {this.state.videoRating && (
-          <div className="popup">
-            <div className="popup_inner starRating">
-              <form onSubmit={this.handleSubmit} style={{ top: "50%" }}>
-                <StarRatingComponent
-                  name="star rating1"
-                  onStarClick={this.onStarClick}
-                />
-                <br />
-                <input
-                  type="submit"
-                  value="Submit"
-                  style={{
-                    backgroundColor: "black",
-                    color: "white",
-                    fontSize: "24px",
-                  }}
-                />
-              </form>
-            </div>
-          </div>
         )}
         <Footer />
       </div>

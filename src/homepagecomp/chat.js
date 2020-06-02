@@ -15,7 +15,7 @@ class chat extends React.Component {
       messages: [],
       name: this.props.name,
       id: this.props.id,
-      room: this.props.userRoom
+      room: this.props.userRoom,
     };
   }
 
@@ -25,12 +25,20 @@ class chat extends React.Component {
 
   componentWillMount() {
     var userRoom = this.state.room;
+    var user = JSON.parse(localStorage.getItem("profileUser"));
+    var name = user.firstName;
     var nf = this.state.name;
+    if (userRoom.includes("undefined")) {
+      userRoom = nf + name;
+      this.setState({ room: userRoom });
+    }
+    console.log(nf, " ", userRoom);
     socket.emit("join", { nf, userRoom });
   }
 
-  sendSocketIO = message => {
+  sendSocketIO = (message) => {
     var room = this.state.room;
+
     if (room == null) {
       var room = this.props.nameOfUser + this.props.name;
     }
@@ -38,7 +46,7 @@ class chat extends React.Component {
     socket.emit("roomMessage", { room, message, name });
   };
 
-  sendMessage = message => {
+  sendMessage = (message) => {
     this.setState({
       messages: [
         ...this.state.messages,
@@ -51,13 +59,13 @@ class chat extends React.Component {
               <p>{message}</p>
             </div>
           </div>
-        </div>
-      ]
+        </div>,
+      ],
     });
     this.sendSocketIO(message);
   };
 
-  receiveMessage = message => {
+  receiveMessage = (message) => {
     this.setState({
       messages: [
         ...this.state.messages,
@@ -70,35 +78,35 @@ class chat extends React.Component {
               <p>{message}</p>
             </div>
           </div>
-        </div>
-      ]
+        </div>,
+      ],
     });
   };
 
-  handleMessage = event => {
+  handleMessage = (event) => {
     this.sendMessage(this.state.message);
     this.setState({ message: "", send: true });
 
     event.preventDefault();
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      message: event.target.value
+      message: event.target.value,
     });
   };
 
-  handleClick = props => {
+  handleClick = (props) => {
     this.setState({
       sned: false,
       messages: [],
-      message: ""
+      message: "",
     });
     this.props.closeMe();
   };
 
   componentDidMount() {
-    socket.on("roomMessage", info => {
+    socket.on("roomMessage", (info) => {
       this.receiveMessage(info.message);
     });
     this.scrollToBottom();
@@ -126,7 +134,7 @@ class chat extends React.Component {
                     right: "0px",
                     position: "absolute",
                     backgroundColor: "inherit",
-                    border: "none"
+                    border: "none",
                   }}
                 >
                   <IoIosCloseCircle />
@@ -155,7 +163,7 @@ class chat extends React.Component {
                 {this.state.messages}
                 <div
                   style={{ float: "left", clear: "both" }}
-                  ref={el => {
+                  ref={(el) => {
                     this.messagesEnd = el;
                   }}
                 ></div>
