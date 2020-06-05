@@ -14,6 +14,10 @@ import openSocket from "socket.io-client";
 import { IoIosClose } from "react-icons/io";
 const socket = openSocket("http://localhost:5000");
 
+/*
+  
+*/
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);

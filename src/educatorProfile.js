@@ -7,6 +7,16 @@ import Reviews from "./homepagecomp/reviews";
 import Notes from "./homepagecomp/notes";
 import Footer from "./homepagecomp/footer";
 
+//Αυτή η κλάση αποτελεί το προφίλ του χρήστη.
+/*
+  Σε αυτή καλούμε τις εξής κλάσεις: navbar, reviews, notes, footer
+  Γενικά σε αυτή την κλάση, ο χρήστης έχει την δυνατότητα να δει το προφίλ του καθηγητή το οποίο έχει επισκεφτεί.
+  Καλώντας τις παραπάνω κλάσεις, προφανώς έχουμε το navbar, footer αλλά βλέπουμε και τις σημειώσεις που έχει ανεβάσει ο καθηγητής.
+  Επί πρόσθετα, Βλέπουμε τις κριτικές που έχει ο καθηγητής.
+  Ο επισκέπτης μπορεί και αυτός με την σειρά του να αφήσει την δική του κριτική
+   
+*/
+
 class educatorProfile extends React.Component {
   constructor() {
     super();
@@ -22,11 +32,14 @@ class educatorProfile extends React.Component {
       loaded: false,
     };
   }
+
+  /*Περιμένουμε να φορτώσουν όλα τα δεδομένα μας */
+
   async componentDidMount(props) {
     await this.start();
     this.setState({ loaded: true });
   }
-
+  /*Παίρνουμε τα δεδομένα του χρήστη από το localstorage του προγράμματος περιήγησης */
   start = (props) => {
     if (this.props.location.params) {
       localStorage.setItem(
@@ -120,6 +133,7 @@ class educatorProfile extends React.Component {
             <div className="col-md sector" style={{ fontWeight: "bold" }}>
               Notes:
               <br />
+              {/* Καλούμε την κλάση Notes με δεδομένα το προφίλ του καθηγητή. Θα μας επιστρέψει όλες τις σημειώσεις του καθηγητή */}
               <Notes
                 id={JSON.parse(localStorage.getItem("currentProfile")).id}
               />
@@ -128,6 +142,7 @@ class educatorProfile extends React.Component {
           <div className="row">
             <div className="col-md sector" style={{ fontWeight: "bold" }}>
               Reviews
+              {/* Καλούμε την κλάση reviews με δεδομένα το προφίλ του καθηγητή. Θα μας επιστραφούν όλες οι κριτικές του */}
               <Reviews
                 id={JSON.parse(localStorage.getItem("currentProfile")).id}
               />
@@ -135,6 +150,9 @@ class educatorProfile extends React.Component {
               <div></div>
             </div>
           </div>
+
+          {/* Σε αυτό το σημείο κάνουμε render την φόρμα συμπλήρωσης για κριτική */}
+
           <div className="row">
             <div className="col-md sector">
               <form onSubmit={this.handleSubmit}>
