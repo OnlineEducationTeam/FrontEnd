@@ -15,6 +15,8 @@ import { IoIosClose } from "react-icons/io";
 const socket = openSocket("http://localhost:5000");
 
 /*
+  Αυτή η κλάση ονομάζεται Homepage και αποτελεί την βασική σελίδα της εφαρμογής.
+  Μέσα σε αυτή καλούμε άλλες κλάσεις: NavBar, LessonSelection, Online, Chat
   
 */
 
@@ -39,6 +41,7 @@ class HomePage extends React.Component {
     };
   }
 
+  // Αυτή η συνάρτηση καλείται όταν η σελίδα έχει φορτώσει
   componentDidMount() {
     var user = JSON.parse(localStorage.getItem("profileUser"));
     var name = user.firstName;
@@ -54,6 +57,7 @@ class HomePage extends React.Component {
     });
   }
 
+  // Η παρακάτω συνάρτηση καλείται πριν ακριβώς η σελίδα φορτώσει
   componentWillMount() {
     if (this.props.location.state !== undefined) {
       localStorage.setItem(
@@ -93,6 +97,7 @@ class HomePage extends React.Component {
     }
   }
 
+  // Σε αυτή την συνάρτηση καλούμε την κλάση Online, στην οποία υπάρχουν και η υποκλάση Person. Μας επιστρέφει τους καθηγητές που είναι online
   getNewProf = () => {
     this.setState({
       online: (
@@ -121,6 +126,7 @@ class HomePage extends React.Component {
       });
   }
 
+  //Η συνάρτηση καλείται για να μας εμφανίσει το chat όταν πατήσουμε το κουμπί live chat
   onChatClickMe = (name, id) => {
     var nam = this.state.name;
     var js = JSON.parse(localStorage.getItem("profileUser"));
@@ -135,6 +141,7 @@ class HomePage extends React.Component {
     socket.emit("connected", { nam, name });
   };
 
+  //Παρόμοια με την παραπάνω συνάρτηση για Video (Under Construction)
   onVideoClick = (name, id) => {
     var nam = this.state.name;
     var userRoom = nam + name;
@@ -165,12 +172,14 @@ class HomePage extends React.Component {
       <h6>Loading...</h6>
     ) : (
       <div>
+        {/* Καλούμε την κλάση navbar */}
         <NavBar
           profile={JSON.parse(localStorage.getItem("currentUser"))}
           logout={this.logoutUser}
         />
         <br />
 
+        {/* Καλούμε την κλάση για την επιλογή μαθήματος */}
         <div style={{ marginRight: "20%", marginLeft: "10%" }}>
           <LessonSelection
             getSelectedValue={(val) => this.getSelectedValue(val)}
@@ -185,6 +194,8 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
+
+        {/* Αν το κουμπί έχει πατηθεί, φτιάξε ένα αντικείμενο chat */}
         {this.state.chat && (
           <Chat
             closeMe={this.onChildClick}

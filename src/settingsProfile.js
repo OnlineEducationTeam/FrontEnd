@@ -4,6 +4,12 @@ import axios from "axios";
 import "./profiles.css";
 import Footer from "./homepagecomp/footer";
 
+/*
+Η κλάση αυτή καλείται όταν ο χρήστης επιθυμεί να επεξεργαστεί το προφίλ του.
+Προφαώς, δημιουργεί αντικείμενο Navbar
+
+*/
+
 class SetingsOfProfile extends React.Component {
   constructor(props) {
     super(props);

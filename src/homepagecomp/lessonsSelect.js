@@ -2,6 +2,9 @@ import React from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import "./homepage.css";
 
+// Η κλάση αυτή χρησιμοποιείται για να επιλέξει ο χρήστης μάθημα που τον ενδιαφέρει
+// Αντικείμενο αυτής της κλάσεις δημιουργείται στην αρχική σελίδα
+
 class LessonsSelection extends React.Component {
   constructor() {
     super();

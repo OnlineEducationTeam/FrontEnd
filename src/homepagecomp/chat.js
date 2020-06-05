@@ -6,6 +6,10 @@ import "whatwg-fetch";
 import openSocket from "socket.io-client";
 const socket = openSocket("http://localhost:5000");
 
+/*
+Η κλάση αυτή αποτελεί το chat. Αντικείμενο αυτής δημιουργείται στην κλάση homepage όταν πατηθεί το κουμπί για live chat
+*/
+
 class chat extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +27,7 @@ class chat extends React.Component {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
+  //Καλείται πριν φορτώσει η κλάση
   componentWillMount() {
     var userRoom = this.state.room;
     var user = JSON.parse(localStorage.getItem("profileUser"));

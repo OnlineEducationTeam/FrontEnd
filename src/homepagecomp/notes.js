@@ -2,41 +2,48 @@ import React from "react";
 import axios from "axios";
 import "../profiles.css";
 
+/*
+ Η κλάση αυτή ονομάζεται notes και αντικείμενά της καλούνται όταν χρειάζεται να δείξουμε στον χρήστη 
+ τις σημειώσεις ενός καθηγητή
+*/
+
 class notes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       token: this.props.id,
-      files: []
+      files: [],
     };
   }
 
+  // Με αυτή την συνάρτηση φορτώνουμε τις σημειώσεις στον χρήστη
   loadNotes(props) {
     axios
       .get("http://localhost:5000/display/id", {
         params: {
-          id: this.state.token
-        }
+          id: this.state.token,
+        },
       })
-      .then(res => {
+      .then((res) => {
         this.setState({ files: res.data });
       });
   }
 
-  downloadFile = event => {
+  // Κατεβάζουμε το αρχείο που επιθυμούμε
+  downloadFile = (event) => {
     var fileName = event.target.getAttribute("value");
     axios
       .get("http://localhost:5000/download/id", {
         params: {
           id: this.state.token,
-          fileName: event.target.getAttribute("value")
+          fileName: event.target.getAttribute("value"),
         },
         headers: {
-          Accept: "application/pdf"
+          Accept: "application/pdf",
         },
-        responseType: "blob"
+        responseType: "blob",
       })
-      .then(blob => {
+      .then((blob) => {
         // 2. Create blob link to download
         const url = window.URL.createObjectURL(new Blob([blob.data]));
         const link = document.createElement("a");

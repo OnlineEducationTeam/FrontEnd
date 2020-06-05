@@ -4,6 +4,11 @@ import "./homepage.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+/*
+    Η κλάση navbar. Αποτελεί την γραμμή περιήγησης της εφαρμογής.
+    Αντικείμενά της δημιουργούνται σε κάθε σελίδα
+*/
+
 class NavBar extends React.Component {
   constructor(props) {
     super(props);

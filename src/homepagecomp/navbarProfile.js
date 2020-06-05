@@ -3,18 +3,22 @@ import "./homepage.css";
 import { IoIosHome, IoIosMail } from "react-icons/io";
 import { Link } from "react-router-dom";
 
+/*
+  Αποτελεί υποκλάση της κλάσης navbar. Απλά αυτή καλείται όταν ο χρήστης βρίσκεται στο προφίλ του
+*/
+
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: ""
+      token: "",
     };
   }
 
   componentDidMount() {
     const userIdC = JSON.parse(localStorage.getItem("profileUser"));
     this.setState({
-      token: userIdC._id
+      token: userIdC._id,
     });
   }
 
@@ -24,7 +28,7 @@ class NavBar extends React.Component {
         <div style={{ display: "inline" }}>
           <Link
             to={{
-              pathname: "/OnliEdu/homepage"
+              pathname: "/OnliEdu/homepage",
             }}
           >
             <IoIosHome

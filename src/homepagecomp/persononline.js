@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
 
+/*
+Η κλάση αυτή αποτελεί υποκλάση της κλάσης online. Μέσα στην κλάση online καλείται συνεχώς για κάθε καθηγητή που είναι
+online. 
+Όλες οι πληροφορίες που βλέπει ο χρήστης για τον καθηγητή περιέχονται εδώ
+*/
+
 class PersonOnline extends React.Component {
   constructor(props) {
     super(props);

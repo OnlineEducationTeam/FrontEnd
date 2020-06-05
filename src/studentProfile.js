@@ -6,6 +6,11 @@ import axios from "axios";
 import Reviews from "./homepagecomp/reviews";
 import Footer from "./homepagecomp/footer";
 
+/*
+Αυτή η κλάση αποτελεί το profil του χρήστη. όταν ένας χρήστης επισκέπτεται το δικό του προφίλ, τότε καλείται αυτή.
+
+*/
+
 class studentProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +24,8 @@ class studentProfile extends React.Component {
       files: [],
     };
   }
+
+  // Η συνάρτηση καλείται όταν φορτώσει η σελίδα
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem("profileUser"));
     this.setState({
@@ -36,6 +43,7 @@ class studentProfile extends React.Component {
     });
   };
 
+  // συνάρτηση για να φορτώσουν οι σημειώσεις
   loadNotes(props) {
     axios
       .get("http://localhost:5000/display/id", {
@@ -48,6 +56,7 @@ class studentProfile extends React.Component {
       });
   }
 
+  // συνάρτηση για download αρχείου
   downloadFile = (event) => {
     axios
       .get("http://localhost:5000/download/id", {
@@ -75,6 +84,7 @@ class studentProfile extends React.Component {
       });
   };
 
+  // Αν ο χρήστης που βλέπει το προφίλ του είναι καθηγητής, τότε θέλουμε να βλέπει τις σημειώσεις του και τις κριτικές του
   Professor = (props) => {
     this.loadNotes();
     const user = JSON.parse(localStorage.getItem("profileUser"));

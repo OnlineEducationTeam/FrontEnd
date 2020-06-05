@@ -7,6 +7,10 @@ import axios from "axios";
 /*The sign up form. The person that signs up has to put his personal info
 Later that will be stored in a base*/
 
+/*
+Κλάση signup. Καλείται όταν ένας νέος χρήστης επιθυμεί να κάνει εγγραφή στην εφαρμογή μας
+*/
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -18,56 +22,56 @@ class SignUp extends React.Component {
       password: "",
       confirmPassword: "",
       professor: "",
-      subject: ""
+      subject: "",
     };
   }
 
-  onChangeFirstName = e => {
+  onChangeFirstName = (e) => {
     this.setState({
-      firstName: e.target.value
+      firstName: e.target.value,
     });
   };
-  onChangeLastName = e => {
+  onChangeLastName = (e) => {
     this.setState({
-      lastName: e.target.value
+      lastName: e.target.value,
     });
   };
-  onChangeEmail = e => {
+  onChangeEmail = (e) => {
     this.setState({
-      email: e.target.value
+      email: e.target.value,
     });
   };
-  onChangePassword = e => {
+  onChangePassword = (e) => {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   };
-  onChangeConfirmPassword = e => {
+  onChangeConfirmPassword = (e) => {
     this.setState({
-      confirmPassword: e.target.value
+      confirmPassword: e.target.value,
     });
   };
-  onChangeProfessor = e => {
+  onChangeProfessor = (e) => {
     console.log(e.target.value);
     if (e.target.value === "professor") {
       this.setState({
-        professor: true
+        professor: true,
       });
     } else if (e.target.value === "student") {
       this.setState({
-        professor: false
+        professor: false,
       });
     } else {
       alert("Please select if you are a student or a professor");
     }
   };
-  onChangeSubject = e => {
+  onChangeSubject = (e) => {
     this.setState({
-      subject: e.target.value
+      subject: e.target.value,
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     const { password, confirmPassword } = this.state;
     if (password !== confirmPassword) {
       alert("Passwords don't match");
@@ -79,14 +83,14 @@ class SignUp extends React.Component {
         email: this.state.email,
         password: this.state.password,
         professor: this.state.professor,
-        subject: this.state.subject
+        subject: this.state.subject,
       };
 
       console.log(user);
 
       axios
         .post("http://localhost:5000/users/signup", user)
-        .then(res => console.log("Welcome " + user.firstName));
+        .then((res) => console.log("Welcome " + user.firstName));
     }
 
     window.location = "/OnliEdu";

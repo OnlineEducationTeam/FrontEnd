@@ -1,7 +1,9 @@
-import React from "react";
-import Person from "./persononline";
-import "./homepage.css";
 import axios from "axios";
+import React from "react";
+import "./homepage.css";
+import Person from "./persononline";
+
+// Η κλάση online. Αντικείμενό της δημιουργείται στην αρχική σελίδα και περιέχει τους καθηγητές οι οποίοι είναι online
 
 class Online extends React.Component {
   constructor(props) {

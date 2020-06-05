@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 /*Simple login form.*/
+/*
+  Η κλάση αυτή αποτελεί την κλάση Login. Είναι η σελίδα στην οποία ο χρήστης συνδέεται με την εφαρμογή μας
+  
+*/
 
 class Login extends React.Component {
   constructor(props) {

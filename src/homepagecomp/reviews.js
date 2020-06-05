@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
 
+// Η κλάση reviews εμφανίζει τις κριτικές του καθηγητή που επιθυμεί ο χρήστης
+// κάθε φορά που το επιθυμεί
+
 class reviews extends React.Component {
   constructor(props) {
     super(props);
