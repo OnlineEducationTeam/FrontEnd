@@ -2,7 +2,39 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+
+The project is divided into 2 branches 
+
+
+FrontEnd
+
+https://github.com/OnlineEducationTeam/FrontEnd
+
+BackEnd
+
+
+https://github.com/OnlineEducationTeam/Back-End
+
+First you have to execute 
+
+### `git clone` 
+
+ to copy BackEnd into your local machine.Then you type
+ 
+ ### `nodemon server`
+ 
+ and the server start running
+ 
+Then you type 
+### `git clone `   `<FrontEnd link> `
+
 In the project directory, you can run:
+`npm install`
+
+The command install all necessary dependency for the project to run.This may take a while!
+
+
+
 
 ### `npm start`
 
@@ -11,6 +43,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+If you get an error of missing module you have to type 
+
+### `npm install <missing package name> --save`    
+in order to save the changes to package.json
+
+
 
 ### `npm test`
 
